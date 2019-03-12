@@ -65,7 +65,7 @@ public class SimulatedDCSProxy {
                                     }
                                 })
 
-                                .addLast("tlvEncoder", new TlvEncoder("DCS proxy"));
+                                .addLast("tlvEncoder", new TlvEncoder("DCS proxy server"));
                     }
                 })
                 .option(ChannelOption.SO_BACKLOG, 128)
