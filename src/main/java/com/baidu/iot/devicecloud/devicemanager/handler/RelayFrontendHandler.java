@@ -28,14 +28,14 @@ import static com.baidu.iot.devicecloud.devicemanager.util.NettyUtil.closeOnFlus
  * @author <a href="mailto:yaogang AT baidu DOT com">Yao Gang</a>
  */
 @Slf4j
-public class DCSProxyFrontendHandler extends SimpleChannelInboundHandler<TlvMessage> {
+public class RelayFrontendHandler extends SimpleChannelInboundHandler<TlvMessage> {
     private final String dcsProxyHost;
     private final int dcsProxyPort;
 
     private ChannelFuture channelFuture;
     private Channel outboundChannel;
 
-    public DCSProxyFrontendHandler(String remoteHost, int remotePort) {
+    public RelayFrontendHandler(String remoteHost, int remotePort) {
         this.dcsProxyHost = remoteHost;
         this.dcsProxyPort = remotePort;
     }
@@ -55,7 +55,7 @@ public class DCSProxyFrontendHandler extends SimpleChannelInboundHandler<TlvMess
                         ch.pipeline()
                                 // Inbounds start from below
                                 .addLast("tlvDecoder", new TlvDecoder())
-                                .addLast(new DCSProxyBackendHandler(inboundChannel))
+                                .addLast(new RelayBackendHandler(inboundChannel))
                                 // Inbounds stop at above
 
                                 // Outbounds stop at below
@@ -92,6 +92,7 @@ public class DCSProxyFrontendHandler extends SimpleChannelInboundHandler<TlvMess
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        log.info("The inboundChannel has logged out.");
         if (outboundChannel != null) {
             closeOnFlush(outboundChannel);
         }

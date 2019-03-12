@@ -13,10 +13,10 @@ import lombok.extern.slf4j.Slf4j;
  * @author <a href="mailto:yaogang AT baidu DOT com">Yao Gang</a>
  */
 @Slf4j
-public class DCSProxyBackendHandler extends SimpleChannelInboundHandler<TlvMessage> {
+public class RelayBackendHandler extends SimpleChannelInboundHandler<TlvMessage> {
     private final Channel inboundChannel;
 
-    public DCSProxyBackendHandler(Channel inboundChannel) {
+    public RelayBackendHandler(Channel inboundChannel) {
         this.inboundChannel = inboundChannel;
     }
 

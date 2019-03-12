@@ -2,7 +2,7 @@ package com.baidu.iot.devicecloud.devicemanager.server;
 
 import com.baidu.iot.devicecloud.devicemanager.codec.TlvDecoder;
 import com.baidu.iot.devicecloud.devicemanager.codec.TlvEncoder;
-import com.baidu.iot.devicecloud.devicemanager.handler.DCSProxyFrontendHandler;
+import com.baidu.iot.devicecloud.devicemanager.handler.RelayFrontendHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -52,7 +52,7 @@ public class TcpRelayServer {
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ch.pipeline()
                                 .addLast("tlvDecoder", new TlvDecoder())
-                                .addLast("relayHandler", new DCSProxyFrontendHandler("localhost", 8010))
+                                .addLast("relayHandler", new RelayFrontendHandler("localhost", 8010))
 
                                 .addLast("tlvEncoder", new TlvEncoder("Relay server"));
                     }
